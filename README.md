@@ -19,7 +19,7 @@
 ### Links
 
 - Repositorio URL: [Clique aqui para ir ao respositorio](https://github.com/EduardoBraz1/DuPlay)
-- Deploy URL: [Add live site URL here](https://your-live-site-url.com)
+- Deploy URL: [Clique aqui para ir ao site](https://duplay.netlify.app/)
 
 ## Meu processo
 
