@@ -3,46 +3,47 @@ import Banner from './componentes/Banner';
 import Formulario from './componentes/Formulario';
 import Rodape from './componentes/Footer';
 import Genero from './componentes/Genero';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
 
-  const generos = [
+  const [generos, setGeneros] = useState([
     {
+      id: uuidv4(),
       nome: 'Ação',
-      corPrimaria: '#57C278',
-      corSecundaria: '#D9F7E9'
+      cor: '#D9F7E9'
     },
     {
+      id: uuidv4(),
       nome: 'Aventura',
-      corPrimaria: '#82CFFA',
-      corSecundaria: '#E8F8FF'
+      cor: '#E8F8FF'
     },
     {
+      id: uuidv4(),
       nome: 'Comédia',
-      corPrimaria: '#A6D157',
-      corSecundaria: '#F0F8E2'
+      cor: '#F0F8E2'
     },
     {
+      id: uuidv4(),
       nome: 'Terror',
-      corPrimaria: '#E06B69',
-      corSecundaria: '#FDE7E8'
+      cor: '#FDE7E8'
     },
     {
+      id: uuidv4(),
       nome: 'Drama',
-      corPrimaria: '#DB6EBF',
-      corSecundaria: '#FAE9F5'
+      cor: '#FAE9F5'
       },
     {
+      id: uuidv4(),
       nome: 'Romance',
-      corPrimaria: '#FFBA05',
-      corSecundaria: '#FFF5D9'
+      cor: '#FFF5D9'
     },
     {
+      id: uuidv4(),
       nome: 'Documentário',
-      corPrimaria: '#FF8A29',
-      corSecundaria: '#FFEEDF'
+      cor: '#FFEEDF'
     }
-  ]
+  ])
 
   const [filmes, setFilmes] = useState([])
 
@@ -50,17 +51,42 @@ function App() {
     setFilmes([...filmes, filme])
   }
 
+  function deletarFilme (id) {
+    setFilmes(filmes.filter(filme => filme.id !== id))
+  }
+
+  function mudarCorDoGenero(cor, id) {
+    setGeneros(generos.map(genero => {
+      if(genero.id === id) {
+        genero.cor = cor;
+      }
+      return genero
+    }))
+  }
+
+  function cadastrarGenero(novoGenero) {
+    setGeneros([ ...generos, { ...novoGenero, id: uuidv4() } ])
+  }
+
   return (
     <div className="App">
       <Banner />
-      <Formulario generos={generos.map(genero => genero.nome)} aoFilmeCadastrado={filme => aoNovoFilmeAdicionado(filme)}/>
-      {generos.map(genero => <Genero 
-        key={genero.nome} 
-        nome={genero.nome} 
-        corPrimaria={genero.corPrimaria} 
-        corFundo={genero.corSecundaria}
-        filmes={filmes.filter(filme => filme.genero === genero.nome)}
-        />)}
+      <Formulario 
+        cadastrarGenero={cadastrarGenero}
+        id={generos.id} 
+        aoDeletar={deletarFilme} 
+        generos={generos.map(genero => genero.nome)} 
+        aoFilmeCadastrado={filme => aoNovoFilmeAdicionado(filme)}
+      />
+      {generos.map((genero) =>
+        <Genero
+          mudarCor={mudarCorDoGenero}
+          key={genero.nome}
+          genero={genero}
+          filmes={filmes.filter(filme => filme.genero === genero.nome)}
+          aoDeletar={deletarFilme}
+        />
+      )}
       <Rodape />
     </div>
   );

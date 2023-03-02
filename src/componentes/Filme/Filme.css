@@ -1,5 +1,6 @@
 .filme {
     width: 280px;
+    position: relative;
 }
 
 .filme .cabecalho {
