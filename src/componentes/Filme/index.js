@@ -9,9 +9,6 @@ const Filme = ({filme, nome, imagem, descricao, corFundo, aoDeletar}) => {
             <div className='rodape'>
                 <h4>{nome}</h4>
                 <h5>{descricao}</h5>
-                <div className='favoritar'>
-                    {filme.favorito ? 'favorito' : 'não favorito'}
-                </div>
             </div>
         </div>
     )
